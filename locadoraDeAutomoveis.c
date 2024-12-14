@@ -14,52 +14,47 @@ typedef struct {
     float valorDiaria;
 } Veiculo;
 
-//globais
-Veiculo veiculos[MAX_VEICULOS];
-int totalVeiculos = 0;
-
-void cadastrarVeiculo() {
-    if (totalVeiculos >= MAX_VEICULOS) {
-        printf("Limite máximo de veículos atingido.\n");
+void cadastrarVeiculo(Veiculo *veiculos, int *totalVeiculos) {
+    if (*totalVeiculos >= MAX_VEICULOS) {
+        printf("\nLimite máximo de veículos atingido.\n");
         return;
     }
 
     Veiculo novoVeiculo;
-    novoVeiculo.id = totalVeiculos + 1;
+    novoVeiculo.id = *totalVeiculos + 1;
 
-    printf("Digite o modelo do veículo: ");
+    printf("\nDigite o modelo do veículo: ");
     fgets(novoVeiculo.modelo, sizeof(novoVeiculo.modelo), stdin);
-    novoVeiculo.modelo[strcspn(novoVeiculo.modelo, "\n")] = '\0'; 
-    
-    
-    do {
-        printf("Digite o ano do veículo: ");
-        scanf("%d", &novoVeiculo.ano);
-        if (novoVeiculo.ano < 1886 || novoVeiculo.ano > 2024) {
-            printf("Ano inválido. Tente novamente.\n");
-        }
-    } while (novoVeiculo.ano < 1886 || novoVeiculo.ano > 2024);
+    novoVeiculo.modelo[strcspn(novoVeiculo.modelo, "\n")] = '\0';
 
+    do {
+        printf("Digite o ano do veículo (1886 a 2025): ");
+        scanf("%d", &novoVeiculo.ano);
+        if (novoVeiculo.ano < 1886 || novoVeiculo.ano > 2025) {
+            printf("\nAno inválido. Tente novamente.");
+        }
+    } while (novoVeiculo.ano < 1886 || novoVeiculo.ano > 2025);
 
     do {
         printf("Digite o valor da diária (em reais): ");
         scanf("%f", &novoVeiculo.valorDiaria);
         if (novoVeiculo.valorDiaria <= 0) {
-            printf("Valor inválido. Tente novamente.\n");
+            printf("\nValor inválido. Tente novamente.");
         }
     } while (novoVeiculo.valorDiaria <= 0);
 
     novoVeiculo.disponivel = 0;
 
-    veiculos[totalVeiculos] = novoVeiculo;
-    totalVeiculos++;
+    veiculos[*totalVeiculos] = novoVeiculo;
+    (*totalVeiculos)++;
 
-    printf("Veículo cadastrado com sucesso!\n");
+    printf("\nVeículo cadastrado com sucesso!\n");
+    getchar();
 }
 
-void listarVeiculos() {
+void listarVeiculos(Veiculo *veiculos, int totalVeiculos) {
     if (totalVeiculos == 0) {
-        printf("Nenhum veículo cadastrado.\n");
+        printf("\nNenhum veículo cadastrado.\n");
         return;
     }
 
@@ -76,6 +71,8 @@ void listarVeiculos() {
 
 int main() {
     setlocale(LC_ALL, "portuguese");
+    Veiculo veiculos[MAX_VEICULOS];
+    int totalVeiculos = 0;
     int opcao;
 
     do {
@@ -89,10 +86,10 @@ int main() {
 
         switch (opcao) {
             case 1:
-                cadastrarVeiculo();
+                cadastrarVeiculo(veiculos, &totalVeiculos);
                 break;
             case 2:
-                listarVeiculos();
+                listarVeiculos(veiculos, totalVeiculos);
                 break;
             case 3:
                 printf("Encerrando o sistema...\n");
