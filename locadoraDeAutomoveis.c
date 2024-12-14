@@ -14,6 +14,15 @@ typedef struct {
     float valorDiaria;
 } Veiculo;
 
+void exibirMenu() {
+    printf("\n--- LOCADORA DE AUTOMÓVEIS ---\n");
+    printf("1. Cadastrar Veículo\n");
+    printf("2. Listar Veículos\n");
+    printf("3. Remover Veículo\n");
+    printf("4. Sair\n");
+    printf("\nEscolha uma opção: ");
+}
+
 void cadastrarVeiculo(Veiculo *veiculos, int *totalVeiculos) {
     if (*totalVeiculos >= MAX_VEICULOS) {
         printf("\nLimite máximo de veículos atingido.\n");
@@ -112,12 +121,7 @@ int main() {
     int opcao;
 
     do {
-        printf("\n--- LOCADORA DE AUTOMÓVEIS ---\n");
-        printf("1. Cadastrar Veículo\n");
-        printf("2. Listar Veículos\n");
-        printf("3. Remover Veículo\n");
-        printf("4. Sair\n");
-        printf("\nEscolha uma opção: ");
+        exibirMenu();
         scanf("%d", &opcao);
         getchar();
 
