@@ -68,6 +68,42 @@ void listarVeiculos(Veiculo *veiculos, int totalVeiculos) {
     }
 }
 
+void removerVeiculo(Veiculo *veiculos, int *totalVeiculos) {
+    int idRemover;
+    int encontrado = 0;
+
+    if (*totalVeiculos == 0) {
+        printf("\nNenhum veículo cadastrado para remover.\n");
+        return;
+    }
+
+    listarVeiculos(veiculos, *totalVeiculos);
+
+    printf("Digite o ID do veículo que deseja remover: ");
+    scanf("%d", &idRemover);
+
+    for (int i = 0; i < *totalVeiculos; i++) {
+        if (veiculos[i].id == idRemover) {
+            encontrado = 1;
+
+            for (int j = i; j < *totalVeiculos - 1; j++) {
+                veiculos[j] = veiculos[j + 1];
+            }
+
+            (*totalVeiculos)--;
+
+            printf("\nVeículo com ID %d removido com sucesso.\n", idRemover);
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        printf("\nVeículo com ID %d não encontrado.\n", idRemover);
+    }
+    getchar();
+}
+
+
 
 int main() {
     setlocale(LC_ALL, "portuguese");
@@ -79,8 +115,9 @@ int main() {
         printf("\n--- LOCADORA DE AUTOMÓVEIS ---\n");
         printf("1. Cadastrar Veículo\n");
         printf("2. Listar Veículos\n");
-        printf("3. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("3. Remover Veículo\n");
+        printf("4. Sair\n");
+        printf("\nEscolha uma opção: ");
         scanf("%d", &opcao);
         getchar();
 
@@ -92,10 +129,13 @@ int main() {
                 listarVeiculos(veiculos, totalVeiculos);
                 break;
             case 3:
+                removerVeiculo(veiculos, &totalVeiculos);
+                break;    
+            case 4:
                 printf("Encerrando o sistema...\n");
                 break;
             default:
                 printf("Opção inválida! Tente novamente.\n");
         }
-    } while (opcao != 3);
+    } while (opcao != 4);
 }
