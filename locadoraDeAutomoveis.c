@@ -14,12 +14,20 @@ typedef struct {
     float valorDiaria;
 } Veiculo;
 
+typedef struct {
+    int idVeiculo;
+    char nomeCliente[50];
+    int diasAluguel;
+    float valorTotal;
+} Aluguel;
+
 void exibirMenu() {
     printf("\n--- LOCADORA DE AUTOMÓVEIS ---\n");
     printf("1. Cadastrar Veículo\n");
     printf("2. Listar Veículos\n");
     printf("3. Remover Veículo\n");
-    printf("4. Sair\n");
+    printf("4. Alugar Veículo\n");
+    printf("5. Sair\n");
     printf("\nEscolha uma opção: ");
 }
 
@@ -112,12 +120,58 @@ void removerVeiculo(Veiculo *veiculos, int *totalVeiculos) {
     getchar();
 }
 
+void alugarVeiculo(Veiculo *veiculos, int totalVeiculos, Aluguel **alugueis, int *totalAlugueis) {
+    int idVeiculo;
+    listarVeiculos(veiculos, totalVeiculos);
+
+    printf("\nDigite o ID do veículo que deseja alugar: ");
+    scanf("%d", &idVeiculo);
+    getchar();  
+
+    int veiculoEncontrado = 0;
+    for (int i = 0; i < totalVeiculos; i++) {
+        if (veiculos[i].id == idVeiculo) {
+            veiculoEncontrado = 1;
+
+            if (veiculos[i].disponivel == 1) {
+                printf("\nVeículo não está disponível para aluguel.\n");
+                return;
+            }
+
+            Aluguel novoAluguel;
+            novoAluguel.idVeiculo = idVeiculo;
+            printf("Digite o nome do cliente: ");
+            fgets(novoAluguel.nomeCliente, sizeof(novoAluguel.nomeCliente), stdin);
+
+            printf("Digite o número de dias para o aluguel: ");
+            scanf("%d", &novoAluguel.diasAluguel);
+            getchar();  
+
+            novoAluguel.valorTotal = veiculos[i].valorDiaria * novoAluguel.diasAluguel;
+
+            *alugueis = realloc(*alugueis, (*totalAlugueis + 1) * sizeof(Aluguel));
+            (*alugueis)[*totalAlugueis] = novoAluguel;
+            (*totalAlugueis)++;
+
+            veiculos[i].disponivel = 1;
+
+            printf("\nAluguel realizado com sucesso! Valor total: R$ %.2f\n", novoAluguel.valorTotal);
+            break;
+        }
+    }
+
+    if (!veiculoEncontrado) {
+        printf("\nVeículo não encontrado.\n");
+    }
+}
 
 
 int main() {
     setlocale(LC_ALL, "portuguese");
     Veiculo veiculos[MAX_VEICULOS];
+    Aluguel *alugueis = NULL;
     int totalVeiculos = 0;
+    int totalAlugueis = 0;
     int opcao;
 
     do {
@@ -134,12 +188,15 @@ int main() {
                 break;
             case 3:
                 removerVeiculo(veiculos, &totalVeiculos);
-                break;    
-            case 4:
+                break; 
+             case 4:
+                alugarVeiculo(veiculos, totalVeiculos, &alugueis, &totalAlugueis);
+                break;         
+            case 5:
                 printf("Encerrando o sistema...\n");
                 break;
             default:
                 printf("Opção inválida! Tente novamente.\n");
         }
-    } while (opcao != 4);
+    } while (opcao != 5);
 }
