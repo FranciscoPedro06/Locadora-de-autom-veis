@@ -33,6 +33,9 @@ typedef struct {
     char endereco[200];
 }Cliente;
 
+int contadorVeiculo = 1; 
+int contadorCliente = 1;
+
 void exibirMenu() {
     printf("\n--- LOCADORA DE AUTOMÓVEIS ---\n");
     printf("1. Cadastrar veículo\n");
@@ -52,7 +55,7 @@ void cadastrarVeiculo(Veiculo *veiculos, int *totalVeiculos) {
     }
 
     Veiculo novoVeiculo;
-    novoVeiculo.id = *totalVeiculos + 1;
+    novoVeiculo.id = contadorVeiculo++;
 
     printf("\nDigite o modelo do veículo: ");
     fgets(novoVeiculo.modelo, sizeof(novoVeiculo.modelo), stdin);
@@ -208,7 +211,7 @@ void cadastrarCliente(Cliente *clientes, int *totalClientes) {
     }
 
     Cliente novoCliente;
-    novoCliente.id = *totalClientes + 1;
+    novoCliente.id = contadorCliente++;
 
     printf("\n--- CADASTRO DE CLIENTE ---\n");
 
@@ -322,4 +325,7 @@ int main() {
                 printf("Opção inválida! Tente novamente.\n");
         }
     } while (opcao != 7);
+
+    free(alugueis);
+    return 0;
 }
