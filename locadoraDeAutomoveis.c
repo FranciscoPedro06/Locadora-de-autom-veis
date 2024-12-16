@@ -47,7 +47,6 @@ int contadorFuncionario = 1;
 Funcionario funcionarios[MAX_FUNCIONARIOS];
 
 void inicializarFuncionarios(Funcionario funcionarios[], int *totalFuncionarios) {
-    // Funcionários pré-cadastrados
     funcionarios[0].id = 0;
     strcpy(funcionarios[0].nome, "Admin");
     strcpy(funcionarios[0].usuario, "admin");
@@ -58,7 +57,7 @@ void inicializarFuncionarios(Funcionario funcionarios[], int *totalFuncionarios)
     strcpy(funcionarios[1].usuario, "func1");
     strcpy(funcionarios[1].senha, "senha456");
 
-    *totalFuncionarios = 2; // Inicializa com 2 funcionários
+    *totalFuncionarios = 2; 
 }
 
 int loginFuncionario(Funcionario funcionarios[], int totalFuncionarios) {
@@ -226,7 +225,7 @@ void alugarVeiculo(Veiculo *veiculos, int totalVeiculos, Aluguel *alugueis, int 
                 return;
             }
 
-            // Verifica se há espaço para mais aluguéis
+
             if (*totalAlugueis >= MAX_ALUGUEIS) {
                 printf("Limite de aluguéis atingido.\n");
                 return;
@@ -243,7 +242,7 @@ void alugarVeiculo(Veiculo *veiculos, int totalVeiculos, Aluguel *alugueis, int 
 
             novoAluguel.valorTotal = veiculos[i].valorDiaria * novoAluguel.diasAluguel;
 
-            alugueis[*totalAlugueis] = novoAluguel;  // Adiciona o novo aluguel no array fixo
+            alugueis[*totalAlugueis] = novoAluguel;  
             (*totalAlugueis)++;
 
             veiculos[i].disponivel = 1;
@@ -366,21 +365,21 @@ void salvarVeiculos(Veiculo *veiculos, int totalVeiculos) {
         printf("Erro ao abrir arquivo para salvar veículos.\n");
         return;
     }
-    fwrite(&totalVeiculos, sizeof(int), 1, arquivo); // Salva a quantidade de veículos
-    fwrite(veiculos, sizeof(Veiculo), totalVeiculos, arquivo); // Salva os veículos
+    fwrite(&totalVeiculos, sizeof(int), 1, arquivo); 
+    fwrite(veiculos, sizeof(Veiculo), totalVeiculos, arquivo); 
     fclose(arquivo);
     printf("Veículos salvos com sucesso!\n");
 }
 
 int carregarVeiculos(Veiculo *veiculos, int capacidade) {
-    FILE *arquivo = fopen("veiculos.txt", "rb");  // Usando "rb" para leitura binária
+    FILE *arquivo = fopen("veiculos.txt", "rb");  
     if (arquivo == NULL) {
         printf("Nenhum dado de veículos encontrado.\n");
         return 0;
     }
 
     int totalVeiculos;
-    fread(&totalVeiculos, sizeof(int), 1, arquivo);  // Lê a quantidade de veículos
+    fread(&totalVeiculos, sizeof(int), 1, arquivo);
     if (totalVeiculos == 0) {
         printf("Não há veículos cadastrados.\n");
         fclose(arquivo);
@@ -393,7 +392,7 @@ int carregarVeiculos(Veiculo *veiculos, int capacidade) {
         return 0;
     }
 
-    fread(veiculos, sizeof(Veiculo), totalVeiculos, arquivo);  // Lê os veículos
+    fread(veiculos, sizeof(Veiculo), totalVeiculos, arquivo);  
     fclose(arquivo);
     printf("Veículos carregados com sucesso!\n");
     return totalVeiculos;
@@ -405,21 +404,21 @@ void salvarAlugueis(Aluguel *alugueis, int totalAlugueis) {
         printf("Erro ao abrir arquivo para salvar aluguéis.\n");
         return;
     }
-    fwrite(&totalAlugueis, sizeof(int), 1, arquivo); // Salva a quantidade de aluguéis
-    fwrite(alugueis, sizeof(Aluguel), totalAlugueis, arquivo); // Salva os aluguéis
+    fwrite(&totalAlugueis, sizeof(int), 1, arquivo); 
+    fwrite(alugueis, sizeof(Aluguel), totalAlugueis, arquivo); 
     fclose(arquivo);
     printf("Aluguéis salvos com sucesso!\n");
 }
 
 int carregarAlugueis(Aluguel *alugueis, int capacidade) {
-    FILE *arquivo = fopen("alugueis.txt", "rb");  // Usando "rb" para leitura binária
+    FILE *arquivo = fopen("alugueis.txt", "rb");  
     if (arquivo == NULL) {
         printf("Nenhum dado de aluguéis encontrado.\n");
         return 0;
     }
 
     int totalAlugueis;
-    fread(&totalAlugueis, sizeof(int), 1, arquivo);  // Lê a quantidade de aluguéis
+    fread(&totalAlugueis, sizeof(int), 1, arquivo); 
     if (totalAlugueis == 0) {
         printf("Não há aluguéis cadastrados.\n");
         fclose(arquivo);
@@ -432,7 +431,7 @@ int carregarAlugueis(Aluguel *alugueis, int capacidade) {
         return 0;
     }
 
-    fread(alugueis, sizeof(Aluguel), totalAlugueis, arquivo);  // Lê os aluguéis
+    fread(alugueis, sizeof(Aluguel), totalAlugueis, arquivo); 
     fclose(arquivo);
     printf("Aluguéis carregados com sucesso!\n");
     return totalAlugueis;
@@ -444,21 +443,21 @@ void salvarClientes(Cliente *clientes, int totalClientes) {
         printf("Erro ao abrir arquivo para salvar clientes.\n");
         return;
     }
-    fwrite(&totalClientes, sizeof(int), 1, arquivo); // Salva a quantidade de clientes
-    fwrite(clientes, sizeof(Cliente), totalClientes, arquivo); // Salva os clientes
+    fwrite(&totalClientes, sizeof(int), 1, arquivo); 
+    fwrite(clientes, sizeof(Cliente), totalClientes, arquivo); 
     fclose(arquivo);
     printf("Clientes salvos com sucesso!\n");
 }
 
 int carregarClientes(Cliente *clientes, int capacidade) {
-    FILE *arquivo = fopen("clientes.txt", "rb"); // Abrindo em modo binário para leitura
+    FILE *arquivo = fopen("clientes.txt", "rb"); 
     if (arquivo == NULL) {
         printf("Nenhum dado de clientes encontrado.\n");
         return 0;
     }
 
     int totalClientes;
-    fread(&totalClientes, sizeof(int), 1, arquivo); // Lê a quantidade de clientes
+    fread(&totalClientes, sizeof(int), 1, arquivo); 
     if (totalClientes == 0) {
         printf("Não há clientes cadastrados.\n");
         fclose(arquivo);
@@ -471,7 +470,7 @@ int carregarClientes(Cliente *clientes, int capacidade) {
         return 0;
     }
 
-    fread(clientes, sizeof(Cliente), totalClientes, arquivo); // Lê os clientes
+    fread(clientes, sizeof(Cliente), totalClientes, arquivo);
     fclose(arquivo);
     printf("Clientes carregados com sucesso!\n");
     return totalClientes;
@@ -490,7 +489,7 @@ int main() {
     int totalFuncionarios = 0;
     int opcao, tipoLogin;
 
-    // Carregar dados existentes
+    
     totalVeiculos = carregarVeiculos(veiculos, MAX_VEICULOS);
     totalAlugueis = carregarAlugueis(alugueis, MAX_ALUGUEIS);
     totalClientes = carregarClientes(clientes, MAX_CLIENTES);
@@ -568,7 +567,7 @@ int main() {
         }
     } while (tipoLogin != 3);
 
-    // Salvar dados
+    
     salvarVeiculos(veiculos, totalVeiculos);
     salvarAlugueis(alugueis, totalAlugueis);
     salvarClientes(clientes, totalClientes);
