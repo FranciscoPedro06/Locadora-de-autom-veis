@@ -257,6 +257,90 @@ void alugarVeiculo(Veiculo *veiculos, int totalVeiculos, Aluguel *alugueis, int 
     }
 }
 
+void listarAlugueis(Aluguel *alugueis, int totalAlugueis, Veiculo *veiculos, int totalVeiculos) {
+    if (totalAlugueis == 0) {
+        printf("\nNenhum aluguel registrado.\n");
+        return;
+    }
+
+    printf("\n--- LISTA DE ALUGUÉIS ---\n");
+    for (int i = 0; i < totalAlugueis; i++) {
+        printf("Aluguel #%d:\n", i + 1);
+        printf("Nome do Cliente: %s\n", alugueis[i].nomeCliente);
+        printf("ID do Veículo: %d\n", alugueis[i].idVeiculo);
+
+
+        int veiculoEncontrado = 0;
+        for (int j = 0; j < totalVeiculos; j++) {
+            if (veiculos[j].id == alugueis[i].idVeiculo) {
+                printf("Modelo do Veículo: %s\n", veiculos[j].modelo);
+                printf("Ano do Veículo: %d\n", veiculos[j].ano);
+                printf("Valor da Diária: R$ %.2f\n", veiculos[j].valorDiaria);
+                veiculoEncontrado = 1;
+                break;
+            }
+        }
+        if (!veiculoEncontrado) {
+            printf("Informações do veículo não encontradas.\n");
+        }
+
+        printf("Dias Alugados: %d\n", alugueis[i].diasAluguel);
+        printf("Valor Total: R$ %.2f\n", alugueis[i].valorTotal);
+        printf("\n----------------------\n");
+    }
+}
+
+
+void removerLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, int totalVeiculos) {
+    if (*totalAlugueis == 0) {
+        printf("\nNenhuma locação registrada para remover.\n");
+        return;
+    }
+
+    printf("\n--- LISTA DE LOCAÇÕES ---\n");
+    for (int i = 0; i < *totalAlugueis; i++) {
+        printf("ID Veículo: %d\n", alugueis[i].idVeiculo);
+        printf("Nome Cliente: %s\n", alugueis[i].nomeCliente);
+        printf("Dias de Aluguel: %d\n", alugueis[i].diasAluguel);
+        printf("Valor Total: R$ %.2f\n", alugueis[i].valorTotal);
+        printf("------------------------\n");
+    }
+
+    int idVeiculoRemover;
+    printf("Digite o ID do veículo associado à locação que deseja remover: ");
+    scanf("%d", &idVeiculoRemover);
+    getchar();
+
+    int encontrado = 0;
+
+    for (int i = 0; i < *totalAlugueis; i++) {
+        if (alugueis[i].idVeiculo == idVeiculoRemover) {
+            encontrado = 1;
+
+            for (int j = 0; j < totalVeiculos; j++) {
+                if (veiculos[j].id == idVeiculoRemover) {
+                    veiculos[j].disponivel = 0; 
+                    break;
+                }
+            }
+
+            for (int j = i; j < *totalAlugueis - 1; j++) {
+                alugueis[j] = alugueis[j + 1];
+            }
+
+            (*totalAlugueis)--;
+
+            printf("\nLocação do veículo com ID %d removida com sucesso.\n", idVeiculoRemover);
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        printf("\nLocação com o ID do veículo %d não encontrada.\n", idVeiculoRemover);
+    }
+}
+
+
 int validarCPF(const char *cpf) {
     if (strlen(cpf) != 11) return 0;
     for (int i = 0; i < 11; i++) {
@@ -487,7 +571,7 @@ int main() {
     int totalAlugueis = 0;
     int totalClientes = 0;
     int totalFuncionarios = 0;
-    int opcao, tipoLogin;
+    int opcao, tipoLogin, opcao2;
 
     
     totalVeiculos = carregarVeiculos(veiculos, MAX_VEICULOS);
@@ -500,7 +584,8 @@ int main() {
         printf("\nEscolha o tipo de login:\n");
         printf("1. Funcionário\n");
         printf("2. Cliente\n");
-        printf("3. Sair\n");
+        printf("3. Cadastrar Cliente\n");
+        printf("4. Sair\n");
         printf("\nEscolha uma opção: ");
         scanf("%d", &tipoLogin);
         getchar();
@@ -529,12 +614,18 @@ int main() {
                             listarClientes(clientes, totalClientes);
                             break;
                         case 6:
+                            listarAlugueis(alugueis, totalAlugueis, veiculos, totalVeiculos);
+                            break;
+                        case 7:
+                            removerLocacao(alugueis, &totalAlugueis, veiculos, totalVeiculos);
+                            break;    
+                        case 8:
                             printf("Encerrando o sistema...\n");
                             break;
                         default:
                             printf("Opção inválida! Tente novamente.\n");
                     }
-                } while (opcao != 6);
+                } while (opcao != 8);
             } else {
                 printf("Login falhou. Usuário ou senha inválidos.\n");
             }
@@ -562,10 +653,14 @@ int main() {
             } else {
                 printf("Login falhou. CPF não encontrado.\n");
             }
-        } else if (tipoLogin != 3) {
-            printf("Opção inválida! Tente novamente.\n");
+        } else if (tipoLogin == 3) {
+            cadastrarCliente(clientes, &totalClientes);
+        } else if (tipoLogin == 4) {
+            printf("Encerrando o sistema...\n");
+        } else {
+            printf("Opção inválida. Tente novamente.\n");
         }
-    } while (tipoLogin != 3);
+    } while (tipoLogin != 4);
 
     
     salvarVeiculos(veiculos, totalVeiculos);
