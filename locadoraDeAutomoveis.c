@@ -117,10 +117,10 @@ const char* loginCliente(Cliente *clientes, int totalClientes) {
     for (int i = 0; i < totalClientes; i++) {
         if (strcmp(clientes[i].cpf, cpf) == 0) {
             printf("Login bem-sucedido!!\n\n");
-            return clientes[i].cpf; // Retorna o CPF do cliente logado
+            return clientes[i].cpf; 
         }
     }
-    return NULL; // Retorna NULL se o CPF não for encontrado
+    return NULL;
 }
 
 void cadastrarVeiculo(Veiculo *veiculos, int *totalVeiculos) {
@@ -369,7 +369,7 @@ void finalizarLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, 
     
     printf("Digite o CPF do cliente associado à locação que deseja finalizar: ");
     fgets(cpfCliente, sizeof(cpfCliente), stdin);
-    cpfCliente[strcspn(cpfCliente, "\n")] = '\0';
+    cpfCliente[strcspn(cpfCliente, "\n")] = '\0'; 
 
     printf("Digite o ID do veículo associado à locação que deseja finalizar: ");
     scanf("%d", &idVeiculoFinalizar);
@@ -378,18 +378,18 @@ void finalizarLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, 
     int encontrado = 0;
 
     for (int i = 0; i < *totalAlugueis; i++) {
-        if (alugueis[i].idVeiculo == idVeiculoFinalizar && strcmp(alugueis[i].nomeCliente, cpfCliente) == 0) {
+        
+        if (alugueis[i].idVeiculo == idVeiculoFinalizar && strcmp(alugueis[i].cpfCliente, cpfCliente) == 0) {
             encontrado = 1;
 
-            // Liberar o veículo
+           
             for (int j = 0; j < totalVeiculos; j++) {
                 if (veiculos[j].id == idVeiculoFinalizar) {
-                    veiculos[j].disponivel = 0; // Veículo disponível novamente
+                    veiculos[j].disponivel = 0; 
                     break;
                 }
             }
 
-            // Remover a locação
             for (int j = i; j < *totalAlugueis - 1; j++) {
                 alugueis[j] = alugueis[j + 1];
             }
@@ -413,15 +413,15 @@ void devolverVeiculo(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, i
     }
 
     printf("\n--- LISTA DE LOCAÇÕES ATIVAS ---\n");
-    int encontrouLocacao = 0; // Para verificar se encontramos alguma locação do cliente
+    int encontrouLocacao = 0;
     for (int i = 0; i < *totalAlugueis; i++) {
-        if (strcmp(alugueis[i].cpfCliente, cpfCliente) == 0) { // Verifica se o CPF do aluguel corresponde ao CPF do cliente logado
+        if (strcmp(alugueis[i].cpfCliente, cpfCliente) == 0) { 
             printf("ID Veículo: %d\n", alugueis[i].idVeiculo);
             printf("Nome Cliente: %s\n", alugueis[i].nomeCliente);
             printf("Dias de Aluguel: %d\n", alugueis[i].diasAluguel);
             printf("Valor Total: R$ %.2f\n", alugueis[i].valorTotal);
             printf("------------------------\n");
-            encontrouLocacao = 1; // Encontrou pelo menos uma locação
+            encontrouLocacao = 1;
         }
     }
 
@@ -441,17 +441,13 @@ void devolverVeiculo(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, i
         if (alugueis[i].idVeiculo == idVeiculoDevolver && strcmp(alugueis[i].cpfCliente, cpfCliente) == 0) {
             encontrado = 1;
 
-            // Aqui você pode adicionar a lógica para verificar o estado do veículo, calcular taxas, etc.
-
-            // Liberar o veículo
             for (int j = 0; j < totalVeiculos; j++) {
                 if (veiculos[j].id == idVeiculoDevolver) {
-                    veiculos[j].disponivel = 0; // Veículo disponível novamente
+                    veiculos[j].disponivel = 0; 
                     break;
                 }
             }
-
-            // Remover a locação
+           
             for (int j = i; j < *totalAlugueis - 1; j++) {
                 alugueis[j] = alugueis[j + 1];
             }
