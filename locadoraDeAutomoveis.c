@@ -84,29 +84,35 @@ int loginFuncionario(Funcionario funcionarios[], int totalFuncionarios) {
 
 
 void exibirMenuFuncionario() {
-    printf("\n--- MENU FUNCIONÁRIO ---\n");
-    printf("1. Cadastrar veículo\n");
-    printf("2. Listar veículos\n");
-    printf("3. Remover veículo\n");
-    printf("4. Cadastrar cliente\n");
-    printf("5. Listar clientes\n");
-    printf("6. Listar aluguéis\n");
-    printf("7. Remover locação\n");
-    printf("8. Finalizar locação\n");
-    printf("9. Buscar locações por veículo\n");
-    printf("10. Sair\n");
-    printf("\nEscolha uma opção: ");
+    printf("\n=================================================\n");
+    printf("|          MENU FUNCIONÁRIO - LOCAPRIME        |\n");
+    printf("=================================================\n");
+    printf("|  1. Cadastrar veículo                        |\n");
+    printf("|  2. Listar veículos                          |\n");
+    printf("|  3. Remover veículo                          |\n");
+    printf("|  4. Cadastrar cliente                         |\n");
+    printf("|  5. Listar clientes                           |\n");
+    printf("|  6. Listar aluguéis                          |\n");
+    printf("|  7. Remover locação                         |\n");
+    printf("|  8. Finalizar locação                       |\n");
+    printf("|  9. Buscar locações por veículo            |\n");
+    printf("| 10. Sair                                      |\n");
+    printf("=================================================\n");
+    printf("Escolha uma opção: ");
 }
 
 void exibirMenuCliente() {
-    printf("\n--- MENU CLIENTE ---\n");
-    printf("1. Listar veículos\n");
-    printf("2. Alugar veículo\n");
-    printf("3. Devolver veículo\n");
-    printf("4. Histórico de alugueis\n");
-    printf("5. Simular locação\n");
-    printf("6. Sair");
-    printf("\nEscolha uma opção: ");
+    printf("\n=================================================\n");
+    printf("|            MENU CLIENTE - LOCAPRIME           |\n");
+    printf("=================================================\n");
+    printf("|  1. Listar veículos                          |\n");
+    printf("|  2. Alugar veículo                           |\n");
+    printf("|  3. Devolver veículo                         |\n");
+    printf("|  4. Histórico de aluguéis                   |\n");
+    printf("|  5. Simular locação                         |\n");
+    printf("|  6. Sair                                      |\n");
+    printf("=================================================\n");
+    printf("Escolha uma opção: ");
 }
 
 const char* loginCliente(Cliente *clientes, int totalClientes) {
@@ -806,7 +812,7 @@ int main() {
     do {
         system("cls");
         printf("\n=================================================\n");
-        printf("|                     LOGIN                     |\n");
+        printf("|                LOGIN - LOCAPRIME              |\n");
         printf("=================================================\n");
         printf("|  1. Funcionário                              |\n");
         printf("|  2. Cliente                                   |\n");
@@ -864,12 +870,12 @@ int main() {
                         default:
                             printf("Opção inválida! Tente novamente.\n");
                     }
-                    printf("Pressione qualquer tecla para continuar...");
+                    printf("Pressione enter para continuar...");
                     getchar(); 
                 } while (opcao != 10);
             } else {
                 printf("Login falhou. Usuário ou senha inválidos.\n");
-                printf("Pressione qualquer tecla para continuar...");
+                printf("Pressione enter para continuar...");
                 getchar(); 
             }
         } else if (tipoLogin == 2) {
@@ -904,23 +910,23 @@ int main() {
                         default:
                             printf("Opção inválida! Tente novamente.\n");
                     }
-                    printf("Pressione qualquer tecla para continuar...");
+                    printf("Pressione enter para continuar...");
                     getchar();
                 } while (opcao != 6);
             } else {
                 printf("Login falhou. CPF não encontrado.\n");
-                printf("Pressione qualquer tecla para continuar...");
+                printf("Pressione enter para continuar...");
                 getchar(); 
             }
         } else if (tipoLogin == 3) {
             cadastrarCliente(clientes, &totalClientes);
-            printf("Pressione qualquer tecla para continuar...");
+            printf("Pressione enter para continuar...");
             getchar();  
         } else if (tipoLogin == 4) {
             printf("Encerrando o sistema...\n");
         } else {
             printf("Opção inválida. Tente novamente.\n");
-            printf("Pressione qualquer tecla para continuar...");
+            printf("Pressione enter para continuar...");
             getchar(); 
         }
     } while (tipoLogin != 4);
