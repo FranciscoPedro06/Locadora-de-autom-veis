@@ -104,7 +104,8 @@ void exibirMenuCliente() {
     printf("2. Alugar veículo\n");
     printf("3. Devolver veículo\n");
     printf("4. Histórico de alugueis\n");
-    printf("5. Sair");
+    printf("5. Simular locação\n");
+    printf("6. Sair");
     printf("\nEscolha uma opção: ");
 }
 
@@ -526,6 +527,43 @@ void listarAlugueisPorVeiculo(Aluguel *alugueis, int totalAlugueis, Veiculo *vei
     }
 }
 
+void simularLocacaoCliente(Veiculo *veiculos, int totalVeiculos) {
+    int idVeiculo;
+    int diasAluguel;
+
+    listarVeiculos(veiculos, totalVeiculos);
+
+    printf("\n--- SIMULAÇÃO DE LOCAÇÃO ---\n");
+    printf("Digite o ID do veículo que deseja simular: ");
+    scanf("%d", &idVeiculo);
+    getchar();
+
+    Veiculo *veiculoEncontrado = NULL;
+    for (int i = 0; i < totalVeiculos; i++) {
+        if (veiculos[i].id == idVeiculo) {
+            veiculoEncontrado = &veiculos[i];
+            break;
+        }
+    }
+
+    if (veiculoEncontrado == NULL) {
+        printf("Veículo com ID %d não encontrado.\n", idVeiculo);
+        return;
+    }
+
+    printf("Digite o número de dias para a locação: ");
+    scanf("%d", &diasAluguel);
+    getchar();
+
+    float valorTotal = veiculoEncontrado->valorDiaria * diasAluguel;
+
+    printf("\n--- SIMULAÇÃO DE LOCAÇÃO ---\n");
+    printf("Modelo do Veículo: %s\n", veiculoEncontrado->modelo);
+    printf("Valor da Diária: R$ %.2f\n", veiculoEncontrado->valorDiaria);
+    printf("Dias de Aluguel: %d\n", diasAluguel);
+    printf("Valor Total: R$ %.2f\n", valorTotal);
+}
+
 int validarCPF(const char *cpf) {
     if (strlen(cpf) != 11) return 0;
     for (int i = 0; i < 11; i++) {
@@ -746,7 +784,7 @@ int carregarClientes(Cliente *clientes, int capacidade) {
 }
 
 int main() {
-    setlocale(LC_ALL, "portuguese");
+    setlocale(LC_ALL, "Portuguese_Brazil");
     
     Veiculo veiculos[MAX_VEICULOS];
     Aluguel alugueis[MAX_ALUGUEIS];
@@ -845,14 +883,17 @@ int main() {
                             break;
                         case 4:
                             listarAlugueisPorCliente(alugueis, totalAlugueis, veiculos, totalVeiculos, cpfClienteLogado); 
-                            break;        
+                            break;
                         case 5:
+                            simularLocacaoCliente(veiculos, totalVeiculos);
+                            break;             
+                        case 6:
                             printf("Saindo...\n");
                             break;
                         default:
                             printf("Opção inválida! Tente novamente.\n");
                     }
-                } while (opcao != 5);
+                } while (opcao != 6);
             } else {
                 printf("Login falhou. CPF não encontrado.\n");
             }
