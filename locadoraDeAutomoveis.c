@@ -302,7 +302,6 @@ void listarAlugueis(Aluguel *alugueis, int totalAlugueis, Veiculo *veiculos, int
     }
 }
 
-
 void removerLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, int totalVeiculos) {
     if (*totalAlugueis == 0) {
         printf("\nNenhuma locação registrada para remover.\n");
@@ -805,22 +804,28 @@ int main() {
     inicializarFuncionarios(funcionarios, &totalFuncionarios);
 
     do {
-        printf("\nEscolha o tipo de login:\n");
-        printf("1. Funcionário\n");
-        printf("2. Cliente\n");
-        printf("3. Cadastrar Cliente\n");
-        printf("4. Sair\n");
-        printf("\nEscolha uma opção: ");
+        system("cls");
+        printf("\n=================================================\n");
+        printf("|                     LOGIN                     |\n");
+        printf("=================================================\n");
+        printf("|  1. Funcionário                              |\n");
+        printf("|  2. Cliente                                   |\n");
+        printf("|  3. Cadastrar Cliente                         |\n");
+        printf("|  4. Sair                                      |\n");
+        printf("=================================================\n");
+        printf("Escolha uma opção: ");
         scanf("%d", &tipoLogin);
         getchar();
 
         if (tipoLogin == 1) {
             if (loginFuncionario(funcionarios, totalFuncionarios)) {
+                system("cls");
                 do {
                     exibirMenuFuncionario();
                     scanf("%d", &opcao);
                     getchar();
 
+                    system("cls"); 
                     switch (opcao) {
                         case 1:
                             cadastrarVeiculo(veiculos, &totalVeiculos);
@@ -842,16 +847,16 @@ int main() {
                             break;
                         case 7:
                             removerLocacao(alugueis, &totalAlugueis, veiculos, totalVeiculos);
-                            break;    
+                            break;
                         case 8:
                             finalizarLocacao(alugueis, &totalAlugueis, veiculos, totalVeiculos);
-                            break;    
+                            break;
                         case 9: { 
                             printf("Digite o ID do veículo que deseja buscar: ");
                             scanf("%d", &idVeiculo);
-                             getchar();
+                            getchar();
                             listarAlugueisPorVeiculo(alugueis, totalAlugueis, veiculos, totalVeiculos, idVeiculo);
-                            break;  
+                            break;
                         }
                         case 10:
                             printf("Encerrando o sistema...\n");
@@ -859,18 +864,24 @@ int main() {
                         default:
                             printf("Opção inválida! Tente novamente.\n");
                     }
+                    printf("Pressione qualquer tecla para continuar...");
+                    getchar(); 
                 } while (opcao != 10);
             } else {
                 printf("Login falhou. Usuário ou senha inválidos.\n");
+                printf("Pressione qualquer tecla para continuar...");
+                getchar(); 
             }
         } else if (tipoLogin == 2) {
             const char* cpfClienteLogado = loginCliente(clientes, totalClientes);
-             if (cpfClienteLogado) {
+            if (cpfClienteLogado) {
+                system("cls"); 
                 do {
                     exibirMenuCliente();
                     scanf("%d", &opcao);
                     getchar();
 
+                    system("cls"); 
                     switch (opcao) {
                         case 1:
                             listarVeiculos(veiculos, totalVeiculos);
@@ -879,36 +890,44 @@ int main() {
                             alugarVeiculo(veiculos, totalVeiculos, alugueis, &totalAlugueis);
                             break;
                         case 3:
-                            devolverVeiculo(alugueis, &totalAlugueis, veiculos, totalVeiculos, cpfClienteLogado); 
+                            devolverVeiculo(alugueis, &totalAlugueis, veiculos, totalVeiculos, cpfClienteLogado);
                             break;
                         case 4:
-                            listarAlugueisPorCliente(alugueis, totalAlugueis, veiculos, totalVeiculos, cpfClienteLogado); 
+                            listarAlugueisPorCliente(alugueis, totalAlugueis, veiculos, totalVeiculos, cpfClienteLogado);
                             break;
                         case 5:
                             simularLocacaoCliente(veiculos, totalVeiculos);
-                            break;             
+                            break;
                         case 6:
                             printf("Saindo...\n");
                             break;
                         default:
                             printf("Opção inválida! Tente novamente.\n");
                     }
+                    printf("Pressione qualquer tecla para continuar...");
+                    getchar();
                 } while (opcao != 6);
             } else {
                 printf("Login falhou. CPF não encontrado.\n");
+                printf("Pressione qualquer tecla para continuar...");
+                getchar(); 
             }
         } else if (tipoLogin == 3) {
             cadastrarCliente(clientes, &totalClientes);
+            printf("Pressione qualquer tecla para continuar...");
+            getchar();  
         } else if (tipoLogin == 4) {
             printf("Encerrando o sistema...\n");
         } else {
             printf("Opção inválida. Tente novamente.\n");
+            printf("Pressione qualquer tecla para continuar...");
+            getchar(); 
         }
     } while (tipoLogin != 4);
 
-    
     salvarVeiculos(veiculos, totalVeiculos);
     salvarAlugueis(alugueis, totalAlugueis);
     salvarClientes(clientes, totalClientes);
+
     return 0;
 }
