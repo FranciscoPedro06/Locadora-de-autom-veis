@@ -64,7 +64,7 @@ void inicializarFuncionarios(Funcionario funcionarios[], int *totalFuncionarios)
 int loginFuncionario(Funcionario funcionarios[], int totalFuncionarios) {
     char usuario[50], senha[50];
     
-    printf("\n--- LOGIN FUNCIONÁRIO ---\n");
+    printf("\n--- LOGIN FUNCIONARIO ---\n");
     printf("Usuário: ");
     fgets(usuario, sizeof(usuario), stdin);
     usuario[strcspn(usuario, "\n")] = '\0';
@@ -85,17 +85,17 @@ int loginFuncionario(Funcionario funcionarios[], int totalFuncionarios) {
 
 void exibirMenuFuncionario() {
     printf("\n=================================================\n");
-    printf("|          MENU FUNCIONÁRIO - LOCAPRIME        |\n");
+    printf("|          MENU FUNCIONARIO - LOCAPRIME        |\n");
     printf("=================================================\n");
-    printf("|  1. Cadastrar veículo                        |\n");
-    printf("|  2. Listar veículos                          |\n");
-    printf("|  3. Remover veículo                          |\n");
+    printf("|  1. Cadastrar veiculo                        |\n");
+    printf("|  2. Listar veiculos                          |\n");
+    printf("|  3. Remover veiculo                          |\n");
     printf("|  4. Cadastrar cliente                         |\n");
     printf("|  5. Listar clientes                           |\n");
-    printf("|  6. Listar aluguéis                          |\n");
-    printf("|  7. Remover locação                         |\n");
-    printf("|  8. Finalizar locação                       |\n");
-    printf("|  9. Buscar locações por veículo            |\n");
+    printf("|  6. Listar alugueis                          |\n");
+    printf("|  7. Remover aluguel                         |\n");
+    printf("|  8. Finalizar aluguel                       |\n");
+    printf("|  9. Buscar alugueis por veiculo            |\n");
     printf("| 10. Sair                                      |\n");
     printf("=================================================\n");
     printf("Escolha uma opção: ");
@@ -105,11 +105,11 @@ void exibirMenuCliente() {
     printf("\n=================================================\n");
     printf("|            MENU CLIENTE - LOCAPRIME           |\n");
     printf("=================================================\n");
-    printf("|  1. Listar veículos                          |\n");
-    printf("|  2. Alugar veículo                           |\n");
-    printf("|  3. Devolver veículo                         |\n");
-    printf("|  4. Histórico de aluguéis                   |\n");
-    printf("|  5. Simular locação                         |\n");
+    printf("|  1. Listar veiculos                          |\n");
+    printf("|  2. Alugar veiculo                           |\n");
+    printf("|  3. Devolver veiculo                         |\n");
+    printf("|  4. Histórico de alugueis                   |\n");
+    printf("|  5. Simular aluguel                         |\n");
     printf("|  6. Sair                                      |\n");
     printf("=================================================\n");
     printf("Escolha uma opção: ");
@@ -119,7 +119,7 @@ const char* loginCliente(Cliente *clientes, int totalClientes) {
     char cpf[15];
 
     printf("\n--- LOGIN CLIENTE ---\n");
-    printf("Digite seu CPF (somente números): ");
+    printf("Digite seu CPF (somente numeros): ");
     fgets(cpf, sizeof(cpf), stdin);
     cpf[strcspn(cpf, "\n")] = '\0';
 
@@ -134,30 +134,30 @@ const char* loginCliente(Cliente *clientes, int totalClientes) {
 
 void cadastrarVeiculo(Veiculo *veiculos, int *totalVeiculos) {
     if (*totalVeiculos >= MAX_VEICULOS) {
-        printf("\nLimite máximo de veículos atingido.\n");
+        printf("\nLimite maximo de veiculos atingido.\n");
         return;
     }
 
     Veiculo novoVeiculo;
     novoVeiculo.id = contadorVeiculo++;
 
-    printf("\nDigite o modelo do veículo: ");
+    printf("\nDigite o modelo do veiculo: ");
     fgets(novoVeiculo.modelo, sizeof(novoVeiculo.modelo), stdin);
     novoVeiculo.modelo[strcspn(novoVeiculo.modelo, "\n")] = '\0';
 
     do {
-        printf("Digite o ano do veículo (1886 a 2025): ");
+        printf("Digite o ano do veiculo (1886 a 2025): ");
         scanf("%d", &novoVeiculo.ano);
         if (novoVeiculo.ano < 1886 || novoVeiculo.ano > 2025) {
-            printf("Ano inválido. Tente novamente.\n");
+            printf("Ano invalido. Tente novamente.\n");
         }
     } while (novoVeiculo.ano < 1886 || novoVeiculo.ano > 2025);
 
     do {
-        printf("Digite o valor da diária (em reais): ");
+        printf("Digite o valor da diaria (em reais): ");
         scanf("%f", &novoVeiculo.valorDiaria);
         if (novoVeiculo.valorDiaria <= 0) {
-            printf("Valor inválido. Tente novamente.\n");
+            printf("Valor invalido. Tente novamente.\n");
         }
     } while (novoVeiculo.valorDiaria <= 0);
 
@@ -166,23 +166,23 @@ void cadastrarVeiculo(Veiculo *veiculos, int *totalVeiculos) {
     veiculos[*totalVeiculos] = novoVeiculo;
     (*totalVeiculos)++;
 
-    printf("\nVeículo cadastrado com sucesso!\n");
+    printf("\nVeiculo cadastrado com sucesso!\n");
     getchar();
 }
 
 void listarVeiculos(Veiculo *veiculos, int totalVeiculos) {
     if (totalVeiculos == 0) {
-        printf("\nNenhum veículo cadastrado.\n");
+        printf("\nNenhum veiculo cadastrado.\n");
         return;
     }
 
-    printf("\n--- LISTA DE VEÍCULOS ---\n");
+    printf("\n--- LISTA DE VEICULOS ---\n");
     for (int i = 0; i < totalVeiculos; i++) {
         printf("ID: %d\n", veiculos[i].id);
         printf("Modelo: %s\n", veiculos[i].modelo);
         printf("Ano: %d\n", veiculos[i].ano);
-        printf("Valor da diária: R$ %.2f\n", veiculos[i].valorDiaria);
-        printf("Disponível: %s\n\n", veiculos[i].disponivel == 0 ? "Sim" : "Não");
+        printf("Valor da diaria: R$ %.2f\n", veiculos[i].valorDiaria);
+        printf("Disponivel: %s\n\n", veiculos[i].disponivel == 0 ? "Sim" : "Não");
     }
 }
 
@@ -191,13 +191,13 @@ void removerVeiculo(Veiculo *veiculos, int *totalVeiculos) {
     int encontrado = 0;
 
     if (*totalVeiculos == 0) {
-        printf("\nNenhum veículo cadastrado para remover.\n");
+        printf("\nNenhum veiculo cadastrado para remover.\n");
         return;
     }
 
     listarVeiculos(veiculos, *totalVeiculos);
 
-    printf("Digite o ID do veículo que deseja remover: ");
+    printf("Digite o ID do veiculo que deseja remover: ");
     scanf("%d", &idRemover);
 
     for (int i = 0; i < *totalVeiculos; i++) {
@@ -210,13 +210,13 @@ void removerVeiculo(Veiculo *veiculos, int *totalVeiculos) {
 
             (*totalVeiculos)--;
 
-            printf("\nVeículo com ID %d removido com sucesso.\n", idRemover);
+            printf("\nVeiculo com ID %d removido com sucesso.\n", idRemover);
             break;
         }
     }
 
     if (!encontrado) {
-        printf("\nVeículo com ID %d não encontrado.\n", idRemover);
+        printf("\nVeiculo com ID %d não encontrado.\n", idRemover);
     }
     getchar();
 }
@@ -225,7 +225,7 @@ void alugarVeiculo(Veiculo *veiculos, int totalVeiculos, Aluguel *alugueis, int 
     int idVeiculo;
     listarVeiculos(veiculos, totalVeiculos);
 
-    printf("\nDigite o ID do veículo que deseja alugar: ");
+    printf("\nDigite o ID do veiculo que deseja alugar: ");
     scanf("%d", &idVeiculo);
     getchar();  
 
@@ -235,13 +235,13 @@ void alugarVeiculo(Veiculo *veiculos, int totalVeiculos, Aluguel *alugueis, int 
             veiculoEncontrado = 1;
 
             if (veiculos[i].disponivel == 1) {
-                printf("\nVeículo não está disponível para aluguel.\n");
+                printf("\nVeiculo nao esta disponivel para aluguel.\n");
                 return;
             }
 
 
             if (*totalAlugueis >= MAX_ALUGUEIS) {
-                printf("Limite de aluguéis atingido.\n");
+                printf("Limite de alugueis atingido.\n");
                 return;
             }
 
@@ -254,7 +254,7 @@ void alugarVeiculo(Veiculo *veiculos, int totalVeiculos, Aluguel *alugueis, int 
             fgets(novoAluguel.cpfCliente, sizeof(novoAluguel.cpfCliente), stdin);
             novoAluguel.cpfCliente[strcspn(novoAluguel.cpfCliente, "\n")] = '\0';
 
-            printf("Digite o número de dias para o aluguel: ");
+            printf("Digite o numero de dias para o aluguel: ");
             scanf("%d", &novoAluguel.diasAluguel);
             getchar();  
 
@@ -271,7 +271,7 @@ void alugarVeiculo(Veiculo *veiculos, int totalVeiculos, Aluguel *alugueis, int 
     }
 
     if (!veiculoEncontrado) {
-        printf("\nVeículo não encontrado.\n");
+        printf("\nVeiculo não encontrado.\n");
     }
 }
 
@@ -281,25 +281,25 @@ void listarAlugueis(Aluguel *alugueis, int totalAlugueis, Veiculo *veiculos, int
         return;
     }
 
-    printf("\n--- LISTA DE ALUGUÉIS ---\n");
+    printf("\n--- LISTA DE ALUGUEIS ---\n");
     for (int i = 0; i < totalAlugueis; i++) {
         printf("Aluguel #%d:\n", i + 1);
         printf("Nome do Cliente: %s\n", alugueis[i].nomeCliente);
-        printf("ID do Veículo: %d\n", alugueis[i].idVeiculo);
+        printf("ID do Veiculo: %d\n", alugueis[i].idVeiculo);
 
 
         int veiculoEncontrado = 0;
         for (int j = 0; j < totalVeiculos; j++) {
             if (veiculos[j].id == alugueis[i].idVeiculo) {
-                printf("Modelo do Veículo: %s\n", veiculos[j].modelo);
-                printf("Ano do Veículo: %d\n", veiculos[j].ano);
-                printf("Valor da Diária: R$ %.2f\n", veiculos[j].valorDiaria);
+                printf("Modelo do Veiculo: %s\n", veiculos[j].modelo);
+                printf("Ano do Veiculo: %d\n", veiculos[j].ano);
+                printf("Valor da Diaria: R$ %.2f\n", veiculos[j].valorDiaria);
                 veiculoEncontrado = 1;
                 break;
             }
         }
         if (!veiculoEncontrado) {
-            printf("Informações do veículo não encontradas.\n");
+            printf("Informacoes do veiculo nao encontradas.\n");
         }
 
         printf("Dias Alugados: %d\n", alugueis[i].diasAluguel);
@@ -310,13 +310,13 @@ void listarAlugueis(Aluguel *alugueis, int totalAlugueis, Veiculo *veiculos, int
 
 void removerLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, int totalVeiculos) {
     if (*totalAlugueis == 0) {
-        printf("\nNenhuma locação registrada para remover.\n");
+        printf("\nNenhuma locacao registrada para remover.\n");
         return;
     }
 
-    printf("\n--- LISTA DE LOCAÇÕES ---\n");
+    printf("\n--- LISTA DE LOCACOES ---\n");
     for (int i = 0; i < *totalAlugueis; i++) {
-        printf("ID Veículo: %d\n", alugueis[i].idVeiculo);
+        printf("ID Veiculo: %d\n", alugueis[i].idVeiculo);
         printf("Nome Cliente: %s\n", alugueis[i].nomeCliente);
         printf("Dias de Aluguel: %d\n", alugueis[i].diasAluguel);
         printf("Valor Total: R$ %.2f\n", alugueis[i].valorTotal);
@@ -324,7 +324,7 @@ void removerLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, in
     }
 
     int idVeiculoRemover;
-    printf("Digite o ID do veículo associado à locação que deseja remover: ");
+    printf("Digite o ID do veiculo associado a locacao que deseja remover: ");
     scanf("%d", &idVeiculoRemover);
     getchar();
 
@@ -347,25 +347,25 @@ void removerLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, in
 
             (*totalAlugueis)--;
 
-            printf("\nLocação do veículo com ID %d removida com sucesso.\n", idVeiculoRemover);
+            printf("\nLocacao do veiculo com ID %d removida com sucesso.\n", idVeiculoRemover);
             break;
         }
     }
 
     if (!encontrado) {
-        printf("\nLocação com o ID do veículo %d não encontrada.\n", idVeiculoRemover);
+        printf("\nLocacao com o ID do veículo %d nao encontrada.\n", idVeiculoRemover);
     }
 }
 
 void finalizarLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, int totalVeiculos) {
     if (*totalAlugueis == 0) {
-        printf("\nNenhuma locação registrada para finalizar.\n");
+        printf("\nNenhuma locacao registrada para finalizar.\n");
         return;
     }
 
-    printf("\n--- LISTA DE LOCAÇÕES ATIVAS ---\n");
+    printf("\n--- LISTA DE LOCACOES ATIVAS ---\n");
     for (int i = 0; i < *totalAlugueis; i++) {
-        printf("ID Veículo: %d\n", alugueis[i].idVeiculo);
+        printf("ID Veiculo: %d\n", alugueis[i].idVeiculo);
         printf("Nome Cliente: %s\n", alugueis[i].nomeCliente);
         printf("Dias de Aluguel: %d\n", alugueis[i].diasAluguel);
         printf("Valor Total: R$ %.2f\n", alugueis[i].valorTotal);
@@ -375,11 +375,11 @@ void finalizarLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, 
     char cpfCliente[15];
     int idVeiculoFinalizar;
     
-    printf("Digite o CPF do cliente associado à locação que deseja finalizar: ");
+    printf("Digite o CPF do cliente associado a locacao que deseja finalizar: ");
     fgets(cpfCliente, sizeof(cpfCliente), stdin);
     cpfCliente[strcspn(cpfCliente, "\n")] = '\0'; 
 
-    printf("Digite o ID do veículo associado à locação que deseja finalizar: ");
+    printf("Digite o ID do veiculo associado a locacao que deseja finalizar: ");
     scanf("%d", &idVeiculoFinalizar);
     getchar();
 
@@ -404,7 +404,7 @@ void finalizarLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, 
 
             (*totalAlugueis)--;
 
-            printf("\nLocação do veículo com ID %d finalizada com sucesso.\n", idVeiculoFinalizar);
+            printf("\nLocacao do veiculo com ID %d finalizada com sucesso.\n", idVeiculoFinalizar);
             break;
         }
     }
@@ -416,15 +416,15 @@ void finalizarLocacao(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, 
 
 void devolverVeiculo(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, int totalVeiculos, const char *cpfCliente) {
     if (*totalAlugueis == 0) {
-        printf("\nNenhuma locação registrada para devolver.\n");
+        printf("\nNenhuma locacao registrada para devolver.\n");
         return;
     }
 
-    printf("\n--- LISTA DE LOCAÇÕES ATIVAS ---\n");
+    printf("\n--- LISTA DE LOCACOES ATIVAS ---\n");
     int encontrouLocacao = 0;
     for (int i = 0; i < *totalAlugueis; i++) {
         if (strcmp(alugueis[i].cpfCliente, cpfCliente) == 0) { 
-            printf("ID Veículo: %d\n", alugueis[i].idVeiculo);
+            printf("ID Veiculo: %d\n", alugueis[i].idVeiculo);
             printf("Nome Cliente: %s\n", alugueis[i].nomeCliente);
             printf("Dias de Aluguel: %d\n", alugueis[i].diasAluguel);
             printf("Valor Total: R$ %.2f\n", alugueis[i].valorTotal);
@@ -434,12 +434,12 @@ void devolverVeiculo(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, i
     }
 
     if (!encontrouLocacao) {
-        printf("Nenhuma locação ativa encontrada para o cliente.\n");
+        printf("Nenhuma locacao ativa encontrada para o cliente.\n");
         return;
     }
 
     int idVeiculoDevolver;
-    printf("Digite o ID do veículo que deseja devolver: ");
+    printf("Digite o ID do veiculo que deseja devolver: ");
     scanf("%d", &idVeiculoDevolver);
     getchar();
 
@@ -462,13 +462,13 @@ void devolverVeiculo(Aluguel *alugueis, int *totalAlugueis, Veiculo *veiculos, i
 
             (*totalAlugueis)--;
 
-            printf("\nVeículo com ID %d devolvido com sucesso.\n", idVeiculoDevolver);
+            printf("\nVeiculo com ID %d devolvido com sucesso.\n", idVeiculoDevolver);
             break;
         }
     }
 
     if (!encontrado) {
-        printf("\nLocação com o ID do veículo %d não encontrada ou não pertence ao cliente.\n", idVeiculoDevolver);
+        printf("\nLocacao com o ID do veiculo %d nao encontrada ou nao pertence ao cliente.\n", idVeiculoDevolver);
     }
 }
 
@@ -478,25 +478,25 @@ void listarAlugueisPorCliente(Aluguel *alugueis, int totalAlugueis, Veiculo *vei
         return;
     }
 
-    printf("\n--- LISTA DE ALUGUÉIS ---\n");
+    printf("\n--- LISTA DE ALUGUEIS ---\n");
     for (int i = 0; i < totalAlugueis; i++) {
         if (strcmp(alugueis[i].cpfCliente, cpfCliente) == 0) { 
             printf("Aluguel #%d:\n", i + 1);
             printf("Nome do Cliente: %s\n", alugueis[i].nomeCliente);
-            printf("ID do Veículo: %d\n", alugueis[i].idVeiculo);
+            printf("ID do Veiculo: %d\n", alugueis[i].idVeiculo);
 
             int veiculoEncontrado = 0;
             for (int j = 0; j < totalVeiculos; j++) {
                 if (veiculos[j].id == alugueis[i].idVeiculo) {
-                    printf("Modelo do Veículo: %s\n", veiculos[j].modelo);
-                    printf("Ano do Veículo: %d\n", veiculos[j].ano);
-                    printf("Valor da Diária: R$ %.2f\n", veiculos[j].valorDiaria);
+                    printf("Modelo do Veiculo: %s\n", veiculos[j].modelo);
+                    printf("Ano do Veiculo: %d\n", veiculos[j].ano);
+                    printf("Valor da Diaria: R$ %.2f\n", veiculos[j].valorDiaria);
                     veiculoEncontrado = 1;
                     break;
                 }
             }
             if (!veiculoEncontrado) {
-                printf("Informações do veículo não encontradas.\n");
+                printf("Informacoes do veiculo nao encontradas.\n");
             }
 
             printf("Dias Alugados: %d\n", alugueis[i].diasAluguel);
@@ -512,7 +512,7 @@ void listarAlugueisPorVeiculo(Aluguel *alugueis, int totalAlugueis, Veiculo *vei
         return;
     }
 
-    printf("\n--- LISTA DE ALUGUÉIS PARA O VEÍCULO ID %d ---\n", idVeiculo);
+    printf("\n--- LISTA DE ALUGUEIS PARA O VEICULO ID %d ---\n", idVeiculo);
     int encontrouAluguel = 0;
 
     for (int i = 0; i < totalAlugueis; i++) {
@@ -528,7 +528,7 @@ void listarAlugueisPorVeiculo(Aluguel *alugueis, int totalAlugueis, Veiculo *vei
     }
 
     if (!encontrouAluguel) {
-        printf("Nenhuma locação encontrada para o veículo ID %d.\n", idVeiculo);
+        printf("Nenhuma locacao encontrada para o veiculo ID %d.\n", idVeiculo);
     }
 }
 
@@ -538,8 +538,8 @@ void simularLocacaoCliente(Veiculo *veiculos, int totalVeiculos) {
 
     listarVeiculos(veiculos, totalVeiculos);
 
-    printf("\n--- SIMULAÇÃO DE LOCAÇÃO ---\n");
-    printf("Digite o ID do veículo que deseja simular: ");
+    printf("\n--- SIMULACAO DE LOCACAO ---\n");
+    printf("Digite o ID do veiculo que deseja simular: ");
     scanf("%d", &idVeiculo);
     getchar();
 
@@ -552,19 +552,19 @@ void simularLocacaoCliente(Veiculo *veiculos, int totalVeiculos) {
     }
 
     if (veiculoEncontrado == NULL) {
-        printf("Veículo com ID %d não encontrado.\n", idVeiculo);
+        printf("Veiculo com ID %d nao encontrado.\n", idVeiculo);
         return;
     }
 
-    printf("Digite o número de dias para a locação: ");
+    printf("Digite o numero de dias para a locacao: ");
     scanf("%d", &diasAluguel);
     getchar();
 
     float valorTotal = veiculoEncontrado->valorDiaria * diasAluguel;
 
-    printf("\n--- SIMULAÇÃO DE LOCAÇÃO ---\n");
-    printf("Modelo do Veículo: %s\n", veiculoEncontrado->modelo);
-    printf("Valor da Diária: R$ %.2f\n", veiculoEncontrado->valorDiaria);
+    printf("\n--- SIMULACAO DE LOCACAO ---\n");
+    printf("Modelo do Veiculo: %s\n", veiculoEncontrado->modelo);
+    printf("Valor da Diaria: R$ %.2f\n", veiculoEncontrado->valorDiaria);
     printf("Dias de Aluguel: %d\n", diasAluguel);
     printf("Valor Total: R$ %.2f\n", valorTotal);
 }
@@ -593,7 +593,7 @@ int validarEmail(const char *email) {
 
 void cadastrarCliente(Cliente *clientes, int *totalClientes) {
     if (*totalClientes >= MAX_CLIENTES) {
-        printf("\nLimite máximo de clientes atingido.\n");
+        printf("\nLimite maximo de clientes atingido.\n");
         return;
     }
 
@@ -607,11 +607,11 @@ void cadastrarCliente(Cliente *clientes, int *totalClientes) {
     novoCliente.nome[strcspn(novoCliente.nome, "\n")] = '\0';
 
     do {
-        printf("CPF (somente números): ");
+        printf("CPF (somente numeros): ");
         fgets(novoCliente.cpf, sizeof(novoCliente.cpf), stdin);
         novoCliente.cpf[strcspn(novoCliente.cpf, "\n")] = '\0';
         if (!validarCPF(novoCliente.cpf)) {
-            printf("Digite um CPF válido (11 números).\n");
+            printf("Digite um CPF valido (11 numeros).\n");
         }
     } while (!validarCPF(novoCliente.cpf));
 
@@ -620,7 +620,7 @@ void cadastrarCliente(Cliente *clientes, int *totalClientes) {
         scanf("%d", &novoCliente.idade);
         getchar();  
         if (novoCliente.idade < 18) {
-            printf("Idade mínima é 18 anos. Tente novamente.\n");
+            printf("Idade minima eh 18 anos. Tente novamente.\n");
         }
     } while (novoCliente.idade < 18);
 
@@ -629,7 +629,7 @@ void cadastrarCliente(Cliente *clientes, int *totalClientes) {
         fgets(novoCliente.telefone, sizeof(novoCliente.telefone), stdin);
         novoCliente.telefone[strcspn(novoCliente.telefone, "\n")] = '\0';
         if (!validarTelefone(novoCliente.telefone)) {
-            printf("Digite um telefone válido (10 a 11 números).\n");
+            printf("Digite um telefone valido (10 a 11 numeros).\n");
         }
     } while (!validarTelefone(novoCliente.telefone));
 
@@ -638,11 +638,11 @@ void cadastrarCliente(Cliente *clientes, int *totalClientes) {
         fgets(novoCliente.email, sizeof(novoCliente.email), stdin);
         novoCliente.email[strcspn(novoCliente.email, "\n")] = '\0';
         if (!validarEmail(novoCliente.email)) {
-            printf("Digite um email válido.\n");
+            printf("Digite um email valido.\n");
         }
     } while (!validarEmail(novoCliente.email));
 
-    printf("Endereço: ");
+    printf("Endereco: ");
     fgets(novoCliente.endereco, sizeof(novoCliente.endereco), stdin);
  novoCliente.endereco[strcspn(novoCliente.endereco, "\n")] = '\0';
 
@@ -666,91 +666,91 @@ void listarClientes(Cliente *clientes, int totalClientes) {
         printf("Idade: %d\n", clientes[i].idade);
         printf("Telefone: %s\n", clientes[i].telefone);
         printf("Email: %s\n", clientes[i].email);
-        printf("Endereço: %s\n", clientes[i].endereco);
+        printf("Endereco: %s\n", clientes[i].endereco);
         printf("\n----------------------\n");
     }
 }
 
 void salvarVeiculos(Veiculo *veiculos, int totalVeiculos) {
-    FILE *arquivo = fopen("veiculos.txt", "wb");
+    FILE *arquivo = fopen("veiculos.bin", "wb");
     if (arquivo == NULL) {
-        printf("Erro ao abrir arquivo para salvar veículos.\n");
+        printf("Erro ao abrir arquivo para salvar veiculos.\n");
         return;
     }
     fwrite(&totalVeiculos, sizeof(int), 1, arquivo); 
     fwrite(veiculos, sizeof(Veiculo), totalVeiculos, arquivo); 
     fclose(arquivo);
-    printf("Veículos salvos com sucesso!\n");
+    printf("Veiculos salvos com sucesso!\n");
 }
 
 int carregarVeiculos(Veiculo *veiculos, int capacidade) {
-    FILE *arquivo = fopen("veiculos.txt", "rb");  
+    FILE *arquivo = fopen("veiculos.bin", "rb");  
     if (arquivo == NULL) {
-        printf("Nenhum dado de veículos encontrado.\n");
+        printf("Nenhum dado de veiculos encontrado.\n");
         return 0;
     }
 
     int totalVeiculos;
     fread(&totalVeiculos, sizeof(int), 1, arquivo);
     if (totalVeiculos == 0) {
-        printf("Não há veículos cadastrados.\n");
+        printf("Não ha veiculos cadastrados.\n");
         fclose(arquivo);
         return 0;
     }
 
     if (totalVeiculos > capacidade) {
-        printf("Capacidade insuficiente para carregar veículos. Temos %d veículos, mas a capacidade é %d.\n", totalVeiculos, capacidade);
+        printf("Capacidade insuficiente para carregar veiculos. Temos %d veiculos, mas a capacidade eh %d.\n", totalVeiculos, capacidade);
         fclose(arquivo);
         return 0;
     }
 
     fread(veiculos, sizeof(Veiculo), totalVeiculos, arquivo);  
     fclose(arquivo);
-    printf("Veículos carregados com sucesso!\n");
+    printf("Veiculos carregados com sucesso!\n");
     return totalVeiculos;
 }
 
 void salvarAlugueis(Aluguel *alugueis, int totalAlugueis) {
-    FILE *arquivo = fopen("alugueis.txt", "wb");
+    FILE *arquivo = fopen("alugueis.bin", "wb");
     if (arquivo == NULL) {
-        printf("Erro ao abrir arquivo para salvar aluguéis.\n");
+        printf("Erro ao abrir arquivo para salvar alugueis.\n");
         return;
     }
     fwrite(&totalAlugueis, sizeof(int), 1, arquivo); 
     fwrite(alugueis, sizeof(Aluguel), totalAlugueis, arquivo); 
     fclose(arquivo);
-    printf("Aluguéis salvos com sucesso!\n");
+    printf("Alugueis salvos com sucesso!\n");
 }
 
 int carregarAlugueis(Aluguel *alugueis, int capacidade) {
-    FILE *arquivo = fopen("alugueis.txt", "rb");  
+    FILE *arquivo = fopen("alugueis.bin", "rb");  
     if (arquivo == NULL) {
-        printf("Nenhum dado de aluguéis encontrado.\n");
+        printf("Nenhum dado de alugueis encontrado.\n");
         return 0;
     }
 
     int totalAlugueis;
     fread(&totalAlugueis, sizeof(int), 1, arquivo); 
     if (totalAlugueis == 0) {
-        printf("Não há aluguéis cadastrados.\n");
+        printf("Nao ha alugueis cadastrados.\n");
         fclose(arquivo);
         return 0;
     }
 
     if (totalAlugueis > capacidade) {
-        printf("Capacidade insuficiente para carregar aluguéis. Temos %d aluguéis, mas a capacidade é %d.\n", totalAlugueis, capacidade);
+        printf("Capacidade insuficiente para carregar alugueis. Temos %d alugueis, mas a capacidade eh %d.\n", totalAlugueis, capacidade);
         fclose(arquivo);
         return 0;
     }
 
     fread(alugueis, sizeof(Aluguel), totalAlugueis, arquivo); 
     fclose(arquivo);
-    printf("Aluguéis carregados com sucesso!\n");
+    printf("Alugueis carregados com sucesso!\n");
     return totalAlugueis;
 }
 
 void salvarClientes(Cliente *clientes, int totalClientes) {
-    FILE *arquivo = fopen("clientes.txt", "wb");
+    FILE *arquivo = fopen("clientes.bin", "wb");
     if (arquivo == NULL) {
         printf("Erro ao abrir arquivo para salvar clientes.\n");
         return;
@@ -762,7 +762,7 @@ void salvarClientes(Cliente *clientes, int totalClientes) {
 }
 
 int carregarClientes(Cliente *clientes, int capacidade) {
-    FILE *arquivo = fopen("clientes.txt", "rb"); 
+    FILE *arquivo = fopen("clientes.bin", "rb"); 
     if (arquivo == NULL) {
         printf("Nenhum dado de clientes encontrado.\n");
         return 0;
@@ -771,13 +771,13 @@ int carregarClientes(Cliente *clientes, int capacidade) {
     int totalClientes;
     fread(&totalClientes, sizeof(int), 1, arquivo); 
     if (totalClientes == 0) {
-        printf("Não há clientes cadastrados.\n");
+        printf("Não ha clientes cadastrados.\n");
         fclose(arquivo);
         return 0;
     }
 
     if (totalClientes > capacidade) {
-        printf("Capacidade insuficiente para carregar clientes. Temos %d clientes, mas a capacidade é %d.\n", totalClientes, capacidade);
+        printf("Capacidade insuficiente para carregar clientes. Temos %d clientes, mas a capacidade eh %d.\n", totalClientes, capacidade);
         fclose(arquivo);
         return 0;
     }
@@ -789,7 +789,7 @@ int carregarClientes(Cliente *clientes, int capacidade) {
 }
 
 int main() {
-    setlocale(LC_ALL, "Portuguese_Brazil");
+    setlocale(LC_ALL, "portuguese");
     
     Veiculo veiculos[MAX_VEICULOS];
     Aluguel alugueis[MAX_ALUGUEIS];
@@ -814,12 +814,12 @@ int main() {
         printf("\n=================================================\n");
         printf("|                LOGIN - LOCAPRIME              |\n");
         printf("=================================================\n");
-        printf("|  1. Funcionário                              |\n");
+        printf("|  1. Funcionario                              |\n");
         printf("|  2. Cliente                                   |\n");
         printf("|  3. Cadastrar Cliente                         |\n");
         printf("|  4. Sair                                      |\n");
         printf("=================================================\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &tipoLogin);
         getchar();
 
@@ -858,7 +858,7 @@ int main() {
                             finalizarLocacao(alugueis, &totalAlugueis, veiculos, totalVeiculos);
                             break;
                         case 9: { 
-                            printf("Digite o ID do veículo que deseja buscar: ");
+                            printf("Digite o ID do veiculo que deseja buscar: ");
                             scanf("%d", &idVeiculo);
                             getchar();
                             listarAlugueisPorVeiculo(alugueis, totalAlugueis, veiculos, totalVeiculos, idVeiculo);
@@ -868,13 +868,13 @@ int main() {
                             printf("Encerrando o sistema...\n");
                             break;
                         default:
-                            printf("Opção inválida! Tente novamente.\n");
+                            printf("Opção invalida! Tente novamente.\n");
                     }
                     printf("Pressione enter para continuar...");
                     getchar(); 
                 } while (opcao != 10);
             } else {
-                printf("Login falhou. Usuário ou senha inválidos.\n");
+                printf("Login falhou. Usuario ou senha invalidos.\n");
                 printf("Pressione enter para continuar...");
                 getchar(); 
             }
@@ -908,13 +908,13 @@ int main() {
                             printf("Saindo...\n");
                             break;
                         default:
-                            printf("Opção inválida! Tente novamente.\n");
+                            printf("Opcao invalida! Tente novamente.\n");
                     }
                     printf("Pressione enter para continuar...");
                     getchar();
                 } while (opcao != 6);
             } else {
-                printf("Login falhou. CPF não encontrado.\n");
+                printf("Login falhou. CPF nao encontrado.\n");
                 printf("Pressione enter para continuar...");
                 getchar(); 
             }
@@ -925,7 +925,7 @@ int main() {
         } else if (tipoLogin == 4) {
             printf("Encerrando o sistema...\n");
         } else {
-            printf("Opção inválida. Tente novamente.\n");
+            printf("Opção invalida. Tente novamente.\n");
             printf("Pressione enter para continuar...");
             getchar(); 
         }
