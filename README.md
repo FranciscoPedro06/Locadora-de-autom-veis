@@ -1,4 +1,5 @@
 # Sistema de Locadora de Automóveis  
+Francisco Pedro e Guilherme de Sena
 
 Este projeto é um sistema simples para gerenciamento de uma locadora de automóveis. Ele permite o cadastro de clientes e veículos, registro de locações, devoluções e exibição de relatórios básicos.
 
