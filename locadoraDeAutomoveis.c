@@ -108,7 +108,7 @@ void exibirMenuCliente() {
     printf("|  1. Listar veiculos                          |\n");
     printf("|  2. Alugar veiculo                           |\n");
     printf("|  3. Devolver veiculo                         |\n");
-    printf("|  4. Histórico de alugueis                   |\n");
+    printf("|  4. Locacoes ativas                   |\n");
     printf("|  5. Simular aluguel                         |\n");
     printf("|  6. Sair                                      |\n");
     printf("=================================================\n");
